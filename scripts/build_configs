@@ -1,2 +1,16 @@
+#!/usr/local/bin/node
+
+var fs = require('fs');
+var Mustache = require('mustache');
+
+var configs = {
+  graphiteHost: process.env.GRAPHITE_HOST || "127.0.0.1",
+  graphitePort: process.env.GRAPHITE_PORT || "8125",
+  flushInterval: process.env.FLUSH_INTERVAL || 10000
+}
+
+var configTemplate = fs.readFileSync("../conf/config.js.mustache").toString()
+
+fs.writeFileSync("../config.js", Mustache.render(configTemplate, configs));
 
 

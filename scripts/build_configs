@@ -1,6 +1,9 @@
 #!/usr/local/bin/node
 
+console.log("Building config file...");
+
 var fs = require('fs');
+var child_process = require('child_process');
 var Mustache = require('mustache');
 
 var configs = {
@@ -8,9 +11,13 @@ var configs = {
   graphitePort: process.env.GRAPHITE_PORT || "8125",
   flushInterval: process.env.FLUSH_INTERVAL || 10000
 }
+console.log(JSON.stringify(configs, null, 5));
 
-var configTemplate = fs.readFileSync("../conf/config.js.mustache").toString()
+var configTemplate = fs.readFileSync("./config.js.mustache").toString()
+fs.writeFileSync("./config.js", Mustache.render(configTemplate, configs));
 
-fs.writeFileSync("../config.js", Mustache.render(configTemplate, configs));
+var options = {
+  stdio: "inherit"
+}
 
-
+child_process.spawnSync("node", ["./stats.js", "./config.js"], options);

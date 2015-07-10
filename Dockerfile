@@ -6,6 +6,6 @@ ADD conf/config.js.mustache /opt/statsd/config.js.mustache
 ADD scripts/build_configs /opt/statsd/build_configs
 
 WORKDIR /opt/statsd
-RUN npm install
+RUN npm install mustache
 
 CMD ["/opt/statsd/build_configs"]

@@ -9,7 +9,11 @@ var Mustache = require('mustache');
 var configs = {
   graphiteHost: process.env.GRAPHITE_HOST || "127.0.0.1",
   graphitePort: process.env.GRAPHITE_PORT || "8125",
-  flushInterval: process.env.FLUSH_INTERVAL || 10000
+  flushInterval: process.env.FLUSH_INTERVAL || 10000,
+  deleteCounters: PROCESS.env.DELETE_COUNTERS || false,
+  deleteGauges: PROCESS.env.DELETE_GAUGES || false,
+  deleteTimers: PROCESS.env.DELETE_TIMERS || false,
+  deleteSets: PROCESS.env.DELETE_SETS || false
 }
 console.log(JSON.stringify(configs, null, 5));
 
